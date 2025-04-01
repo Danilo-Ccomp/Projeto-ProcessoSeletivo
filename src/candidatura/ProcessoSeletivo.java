@@ -1,18 +1,49 @@
-package candidatura;
-public class ProcessoSeletivo {
-    public static void main(String[] args) {
-        analisarCandidato(1000.0);
-        analisarCandidato(2200.0);
-        analisarCandidato(2000.0);
+import java.util.concurrent.ThreadLocalRandom;
 
+public class ProcessoSeletivo{
+    public static void main(String[] args) {
+      imprimriSelecionados();
     }
-    static void analisarCandidato(double salarioPretendido) {
+      
+    static void imprimriSelecionados(){
+        String [] candidatos = {"FELIPE", "MARCIA", "JULIA", "PAULO", "MONICA"};
+        for(int indice = 0; indice < candidatos.length; indice++){
+            System.out.println("O candidado de numero " + (indice+1) + " é " + candidatos[indice]);
+        }
+    }
+
+    static  void selecionarCandidato(){
+
+        String candidatos [] = {"FELIPE", "MARCIA", "JULIA", "PAULO", "AUGUSTO", "MONICA", "FABRICIO", "MIRELA", "DANIELA", "JORGE"};
+        
+        int candidatoSelecionados = 0;
+        int candidatosAtual = 0;
+        double salarioBase = 2000.0;    
+        while(candidatoSelecionados < 5){
+            String candidato = candidatos[candidatosAtual];
+            double salarioPretendido = valorPretendido();
+
+            System.out.println("O candidato " + candidato + " Solicitou este valor de salario " + salarioPretendido);
+            if(salarioBase >= salarioPretendido){
+                System.out.println("O candidato " + candidato + " foi selecionado para vaga");
+                candidatoSelecionados++;
+            }
+            candidatosAtual++;
+        }
+        
+    }
+
+    static void analisarCandidato(double salarioPretendido){
         double salarioBase = 2000.0;
-        if (salarioBase > salarioPretendido) {
+        if (salarioBase > salarioPretendido)
             System.out.println("LIGAR PARA O CANDIDATO");
-        } else if (salarioBase == salarioPretendido) {
-            System.out.println("LIGAR PARA O CANDIDATO COM CONTRAPROPOSTA");
-        } else
-            System.out.println("AGUARDANDO OS DEMAIS CANDIDATOS");
+        else if (salarioBase == salarioPretendido)
+            System.out.println("LIGAR PARA O CANDIDATO COM CONTRA PROPOSTA");
+        else
+            System.out.println("AGUARDANDO O RESULTADO DOS DEMAIS CANDIDATOS");
+    }
+
+    static  double valorPretendido(){
+        return ThreadLocalRandom.current().nextDouble(1800, 2200);
     }
 }
